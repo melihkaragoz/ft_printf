@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/16 22:15:14 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/16 22:19:02 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int ft_print_hex(unsigned long nb, char x)
 	(void)x;
 	int tmp = 0;
 	if (nb >= 16)
-		tmp += ft_printx(nb / 16,x);
+		tmp += ft_print_hex(nb / 16,x);
 	if (x == 'x')
 		tmp += write(1, &"0123456789abcdef"[nb % 16], 1);
 	else if (x == 'X')
@@ -76,7 +76,9 @@ int	check_print_type(char *str, va_list va, int i)
 	else if (str[i] == 'p')
 	{
 		len = ft_putstr("0x");
-		len += ft_printx(va_arg(va,unsigned long),'x');
+		len += ft_print_hex(va_arg(va,unsigned long),'x');
 	}
+	else
+		return (0);
 	return (len);
 }
