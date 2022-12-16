@@ -6,9 +6,9 @@ int	main(void)
 	int	len;
 	int	lenp;
 
-	char *str = "melih";
+	char str = 'x';
 	char *str1 = "deneme";
-	len = ft_printf("%s %s\n",str,str1);
+	len = ft_printf("%c %s\n",str,str1);
 	//lenp = printf("melih");
 	return (0);
 }

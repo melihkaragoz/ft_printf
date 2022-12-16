@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:44:48 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/16 09:53:51 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:03:06 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,19 @@ int	ft_printf(const char *str, ...)
 	va_list va;
 
 	i = 0;
+	pr_len = 0;
 	va_start(va,str);
 	while (str[i])
 	{
 		if (str[i] != '%')
 		{
-			printf("hala burda");
-			write(1,str+i,1); //tmp+(i++)
+			write(1,str+(i++),1);
 			pr_len++;
-			i++;
 		}
  		else if(str[i] == '%')
 		{
 			i++;
-			pr_len += check_print_type((char *)str,va,i);
-			i += pr_len;
-			printf("%d\n",pr_len);
+			pr_len += check_print_type((char *)str,va,i++);
 		}
 	}
 	return (pr_len);
