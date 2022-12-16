@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/16 10:43:25 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:06:51 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	check_print_type(char *str, va_list va, int i)
 		len++;
 	}
 	else if(str[i] == 's')
-	{
 		len = ft_putstr(va_arg(va,char*));
-	}
 	else if(str[i] == 'd')
 		len = ft_putnbr(va_arg(va,int));
 	return (len);

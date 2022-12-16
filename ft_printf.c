@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:44:48 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/16 10:38:23 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:10:05 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_printf(const char *str, ...)
 {
-	char *tmp;
 	int	pr_len;
 	int	i;
 	va_list va;
