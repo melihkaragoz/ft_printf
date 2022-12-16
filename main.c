@@ -8,9 +8,11 @@ int	main(void)
 
 	char	str = 'x';
 	char	*str1 = "deneme";
-	int		num = 42;
+	int		num = 5;
 
-	len = ft_printf("--%c %s %d,%d,%s--\n",str,str1,num,100,"ve son");
+	len = ft_printf("%p\n",str1);
+	printf("%p\n",str1);
+	printf("%lld\n",str1);
 	ft_printf("yazdirilan karakter sayisi : %d\n",len);
 	return (0);
 }
