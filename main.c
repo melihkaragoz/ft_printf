@@ -9,6 +9,5 @@ int	main(void)
 	char str = 'x';
 	char *str1 = "deneme";
 	len = ft_printf("%c %s\n",str,str1);
-	//lenp = printf("melih");
 	return (0);
 }
