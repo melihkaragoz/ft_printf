@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:44:48 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/15 01:11:47 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/16 09:53:51 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,25 @@ void	ft_putchar(char c)
 	write(1,&c,1);
 }
 
-int	check_print_type(char *str,int	i)
+int	check_print_type(char *str, va_list va, int i)
 {
-	int	len;
+	int		len;
+	char	*news;
+	char	newc;
 
 	len = 0;
 	if (!str && *str && *str != '%')
-		return (NULL);
-	else if(str == 'c')
+		return (0);
+	else if(str[i] == 'c')
 	{
-		ft_putchar(str[++i]);
+		newc = va_arg(va,int);
+		ft_putchar(newc);
 		len++;
 	}
-	else if(str == 's')
+	else if(str[i] == 's')
 	{
-		len += ft_putstr(str+(++i));
+		news = va_arg(va,char*);
+		len = ft_putstr(news);
 	}
 	return (len);
 }
@@ -54,21 +58,25 @@ int	ft_printf(const char *str, ...)
 	char *tmp;
 	int	pr_len;
 	int	i;
+	va_list va;
 
 	i = 0;
-	tmp = str;
-
-	while (tmp[i])
+	va_start(va,str);
+	while (str[i])
 	{
-		if (tmp[i] && tmp[i] != '%')
+		if (str[i] != '%')
 		{
-			write(1,tmp[i++],1);
+			printf("hala burda");
+			write(1,str+i,1); //tmp+(i++)
 			pr_len++;
+			i++;
 		}
- 		else if(tmp[i] == '%')
+ 		else if(str[i] == '%')
 		{
 			i++;
-			pr_len += check_print_type(tmp,i);
+			pr_len += check_print_type((char *)str,va,i);
+			i += pr_len;
+			printf("%d\n",pr_len);
 		}
 	}
 	return (pr_len);
