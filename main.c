@@ -10,7 +10,7 @@ int	main(void)
 	char	*str1 = "deneme";
 	int		num = 5;
 
-	len = ft_printf("%p, %d, %s, %c",&num,num,str1,'x');
+	len = ft_printf("%x, %X",123,123);
 	ft_printf("yazdirilan karakter sayisi : %d\n",len);
 	return (0);
 }
