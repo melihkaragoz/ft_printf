@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/16 21:01:21 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/16 22:10:41 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	ft_putstr(char *str)
 }
 
 
-int	ft_print_hex(unsigned int nb, char x)
+int	ft_print_hex(unsigned long nb, char x)
 {
 	if (nb >= 16)
 	{
 		ft_print_hex(nb / 16,'x');
 		ft_print_hex(nb % 16,'x');
 	}
-	if (nb < 16 && nb >= 10)
+	else if (nb < 16 && nb >= 10)
 	{
 		char *hex = "abcdef";
 		char c;
@@ -42,7 +42,7 @@ int	ft_print_hex(unsigned int nb, char x)
 		else if (x == 'x')
 			ft_putchar(c);
 	}
-	else if (nb < 10)
+	else
 		ft_putchar(nb + 48);
 	return (ft_strlen(ft_itoa(nb)));
 }
@@ -86,8 +86,20 @@ int	check_print_type(char *str, va_list va, int i)
 	else if (str[i] == 'p')
 	{
 		len = ft_putstr("0x");
-		len += ft_print_hex(va_arg(va,unsigned int),'x');
+		len += ft_printx(va_arg(va,unsigned long),'x');
 	}
 	return (len);
 }
 
+int ft_printx(unsigned long nb, char x)
+{
+	(void)x;
+	int tmp = 0;
+	if (nb >= 16)
+		tmp += ft_printx(nb / 16,x);
+	if (x == 'x')
+		tmp += write(1, &"0123456789abcdef"[nb % 16], 1);
+	else if (x == 'X')
+		tmp += write(1, &"0123456789ABCDEF"[nb % 16], 1);
+	return tmp;
+}

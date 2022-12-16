@@ -12,7 +12,6 @@ int	main(void)
 
 	len = ft_printf("%p\n",str1);
 	printf("%p\n",str1);
-	printf("%lld\n",str1);
 	ft_printf("yazdirilan karakter sayisi : %d\n",len);
 	return (0);
 }
