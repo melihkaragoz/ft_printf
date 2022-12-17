@@ -1,0 +1,2 @@
+%u -> unsigned int yapilacak
+ft_unsigned_itoa ve ft_put_unsigned_number fonksiyonlari duzenlenecek
