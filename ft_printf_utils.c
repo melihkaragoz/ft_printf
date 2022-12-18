@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/18 19:18:58 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:20:51 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,6 @@ int	ft_print_unsigned_int(unsigned int nb)
 	if (nb < 10)
 		ft_putchar(nb + 48);
 	return (len);
-}
-
-void	print_unsigned(unsigned int n) // silinecek
-{
-	if (n > 9)
-	{
-		print_unsigned(n / 10);
-		print_unsigned(n % 10);
-	}
-	else
-		ft_putchar(n + 48);
 }
 
 int ft_print_hex(unsigned long nb, char x)
@@ -155,6 +144,21 @@ int	digit_finder(int a)
 	return (++result);
 }
 
+int	uns_digit_finder(unsigned int a)
+{
+	int	result;
+
+	result = 0;
+	if (a == 0)
+		return (1);
+	while (a > 9)
+	{
+		a /= 10;
+		result++;
+	}
+	return (++result);
+}
+
 void	ch_sign(int *v, char *res)
 {
 	*(v) *= -1;
@@ -193,7 +197,7 @@ char	*ft_unsigned_itoa(unsigned int n)
 	char	*result;
 	int		size;
 
-	size = digit_finder(n);
+	size = uns_digit_finder(n);
 	result = malloc(sizeof(char) * size + 1);
 	if (!result)
 		return (0);

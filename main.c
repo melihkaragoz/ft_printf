@@ -13,12 +13,9 @@ int	main(void)
 	unsigned int un = 1231231234;
 
 	printf("\n\n");
-	len = ft_printf("s : %s, c = %c, d: %d, p : %p, u : %u, u1 : %u\n",str1,str,num,&str,un,5);
+	len = ft_printf("u1 : %u\n",un);
 	ft_printf("ft yazdirilan karakter sayisi : %d\n\n\n",len);
-	len = printf("s : %s, c = %c, d: %d, p : %p, u : %u, u1 : %u\n",str1,str,num,&str,un,5);
+	len = printf("u1 : %u\n",un);
 	printf("yazdirilan karakter sayisi : %d\n\n\n",len);
-	//len = ft_printf("%u, %u, %u, %u, %u, %u, %u \n",INT_MAX,INT_MIN,LONG_MAX,LONG_MIN,UINT_MAX,ULONG_MAX,9223372036854775807LL);
-	//lenp = printf("%u, %u, %u, %u, %u, %u, %u \n",INT_MAX,INT_MIN,LONG_MAX,LONG_MIN,UINT_MAX,ULONG_MAX,9223372036854775807LL);
-	//printf("ft : %d, p : %d",len,lenp);
 	return (0);
 }
