@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/18 15:55:48 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:55:06 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_print_unsigned_int(unsigned int nb)
 	char	*s;
 	int		len;
 
+	if (nb < 0)
+		nb = 4294967295 - nb + 1;
 	s = ft_unsigned_itoa(nb);
 	len = ft_strlen(s);
 	free(s);
@@ -69,6 +71,17 @@ int	ft_print_unsigned_int(unsigned int nb)
 	if (nb < 10)
 		ft_putchar(nb + 48);
 	return (len);
+}
+
+void	print_unsigned(unsigned int n) // silinecek
+{
+	if (n > 9)
+	{
+		print_unsigned(n / 10);
+		print_unsigned(n % 10);
+	}
+	else
+		ft_putchar(n + 48);
 }
 
 int ft_print_hex(unsigned long nb, char x)
@@ -84,36 +97,32 @@ int ft_print_hex(unsigned long nb, char x)
 	return tmp;
 }
 
-int	check_print_type(char *str, va_list va, int i)
+void	check_print_type(char *str, va_list va, int i, int *lenp)
 {
-	int		len;
-
-	len = 0;
 	if (!str && *str && *str != '%')
-		return (0);
+		return ;
 	else if(str[i] == 'c')
-		len = ft_putchar(va_arg(va,int));
+		*lenp += ft_putchar(va_arg(va,int));
 	else if (str[i] == 's')
-		len = ft_putstr(va_arg(va,char*));
+		*lenp += ft_putstr(va_arg(va,char*));
 	else if (str[i] == 'd' || str[i] == 'i')
-		len = ft_putnbr(va_arg(va,int));
+		*lenp += ft_putnbr(va_arg(va,int));
 	else if (str[i] == 'p')
 	{
-		len = ft_putstr("0x");
-		len += ft_print_hex(va_arg(va,unsigned long),'x');
+		*lenp += ft_putstr("0x");
+		*lenp += ft_print_hex(va_arg(va,unsigned long),'x');
 	}
 	else if (str[i] == 'x' || str[i] == 'X')
-		len = ft_print_hex(va_arg(va,unsigned long),str[i]);
+		*lenp += ft_print_hex(va_arg(va,unsigned long),str[i]);
 	else if (str[i] == 'u')
-		len = ft_print_unsigned_int(va_arg(va,unsigned int));
+		*lenp += ft_print_unsigned_int(va_arg(va,unsigned int));
 	else if (str[i] == '%')
 	{
 		ft_putchar('%');
-		len++;
+		*(lenp) += 1;
 	}
 	else
-		return (0);
-	return (len);
+		return ;
 }
 
 int	ft_strlen(char *str)
