@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/17 22:02:41 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:55:48 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,20 @@ int	ft_putstr(char *str)
 	return (len);
 }
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	write(1,&c,1);
+	return (1);
 }
 
 int	ft_putnbr(int nb)
 {
+	char	*s;
+	int		len;
+
+	s = ft_itoa(nb);
+	len = ft_strlen(s);
+	free(s);
  	if (nb < 0)
 	{
 		ft_putchar('-');
@@ -43,11 +50,17 @@ int	ft_putnbr(int nb)
 	}
 	if (nb < 10)
 		ft_putchar(nb + 48);
-	return (ft_strlen(ft_itoa(nb)));
+	return (len);
 }
 
-int	ft_put_unsigned_number(unsigned int nb)
+int	ft_print_unsigned_int(unsigned int nb)
 {
+	char	*s;
+	int		len;
+
+	s = ft_unsigned_itoa(nb);
+	len = ft_strlen(s);
+	free(s);
 	if (nb >= 10)
 	{
 		ft_putnbr(nb / 10);
@@ -55,7 +68,7 @@ int	ft_put_unsigned_number(unsigned int nb)
 	}
 	if (nb < 10)
 		ft_putchar(nb + 48);
-	return (ft_strlen(ft_itoa(nb)));
+	return (len);
 }
 
 int ft_print_hex(unsigned long nb, char x)
@@ -79,10 +92,7 @@ int	check_print_type(char *str, va_list va, int i)
 	if (!str && *str && *str != '%')
 		return (0);
 	else if(str[i] == 'c')
-	{
-		ft_putchar(va_arg(va,int));
-		len++;
-	}
+		len = ft_putchar(va_arg(va,int));
 	else if (str[i] == 's')
 		len = ft_putstr(va_arg(va,char*));
 	else if (str[i] == 'd' || str[i] == 'i')
@@ -94,6 +104,8 @@ int	check_print_type(char *str, va_list va, int i)
 	}
 	else if (str[i] == 'x' || str[i] == 'X')
 		len = ft_print_hex(va_arg(va,unsigned long),str[i]);
+	else if (str[i] == 'u')
+		len = ft_print_unsigned_int(va_arg(va,unsigned int));
 	else if (str[i] == '%')
 	{
 		ft_putchar('%');
@@ -136,10 +148,10 @@ int	digit_finder(int a)
 	return (++result);
 }
 
-void	int_manup(int *a, char *result)
+void	ch_sign(int *v, char *res)
 {
-	*a *= -1;
-	result[0] = '-';
+	*(v) *= -1;
+	*(res) = '-';
 }
 
 char	*ft_itoa(int n)
@@ -160,7 +172,7 @@ char	*ft_itoa(int n)
 		n = -214748364;
 	}
 	if (n < 0)
-		int_manup(&n, result);
+		ch_sign(&n, result);
 	while (n > 0)
 	{
 		result[size--] = (n % 10) + 48;
