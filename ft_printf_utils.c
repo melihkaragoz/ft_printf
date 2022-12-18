@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/18 18:55:06 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/18 19:18:58 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int	ft_print_unsigned_int(unsigned int nb)
 	char	*s;
 	int		len;
 
-	if (nb < 0)
-		nb = 4294967295 - nb + 1;
 	s = ft_unsigned_itoa(nb);
 	len = ft_strlen(s);
 	free(s);
