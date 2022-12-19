@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 10:09:02 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/19 01:20:51 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/19 04:15:10 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ int	ft_putstr(char *str)
 	int	i;
 
 	i = 0;
+	len = 0;
+	if (!str)
+	{
+		len += write(1, "(null)", 6);
+		return (len);
+	}
 	len = ft_strlen(str);
 	while (str[i])
 		write(1, str+(i++), 1);
@@ -38,7 +44,13 @@ int	ft_putnbr(int nb)
 	s = ft_itoa(nb);
 	len = ft_strlen(s);
 	free(s);
- 	if (nb < 0)
+	if (nb == -2147483648)
+	{
+		ft_putstr("-2");
+		ft_putnbr(147483648);
+		return (11);
+	}
+ 	else if (nb < 0)
 	{
 		ft_putchar('-');
 		nb = -nb;
@@ -71,12 +83,33 @@ int	ft_print_unsigned_int(unsigned int nb)
 	return (len);
 }
 
-int ft_print_hex(unsigned long nb, char x)
+int ft_print_hex(unsigned int nb, char x)
 {
-	(void)x;
-	int tmp = 0;
+	int tmp;
+
+	tmp = 0;
+	if (nb == 0)
+	{
+		ft_putstr("0");
+		return (1);
+	}
 	if (nb >= 16)
 		tmp += ft_print_hex(nb / 16,x);
+	if (x == 'x')
+		tmp += write(1, &"0123456789abcdef"[nb % 16], 1);
+	else if (x == 'X')
+		tmp += write(1, &"0123456789ABCDEF"[nb % 16], 1);
+	return tmp;
+}
+
+int ft_print_ptr(unsigned long nb, char x)
+{
+	int tmp;
+
+	(void)x;
+	tmp = 0;
+	if (nb >= 16)
+		tmp += ft_print_ptr(nb / 16,x);
 	if (x == 'x')
 		tmp += write(1, &"0123456789abcdef"[nb % 16], 1);
 	else if (x == 'X')
@@ -97,7 +130,7 @@ void	check_print_type(char *str, va_list va, int i, int *lenp)
 	else if (str[i] == 'p')
 	{
 		*lenp += ft_putstr("0x");
-		*lenp += ft_print_hex(va_arg(va,unsigned long),'x');
+		*lenp += ft_print_ptr(va_arg(va,unsigned long),'x');
 	}
 	else if (str[i] == 'x' || str[i] == 'X')
 		*lenp += ft_print_hex(va_arg(va,unsigned long),str[i]);
