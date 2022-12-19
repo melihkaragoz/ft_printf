@@ -6,7 +6,7 @@
 /*   By: mkaragoz <mkaragoz@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:44:48 by mkaragoz          #+#    #+#             */
-/*   Updated: 2022/12/18 16:55:22 by mkaragoz         ###   ########.fr       */
+/*   Updated: 2022/12/19 07:48:51 by mkaragoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_printf(const char *str, ...)
 	int		pr_len;
 	int		i;
 	va_list	va;
-
 	int		*lenp;
 
 	lenp = &pr_len;
@@ -34,7 +33,7 @@ int	ft_printf(const char *str, ...)
 		else if (str[i] == '%')
 		{
 			i++;
-			check_print_type((char *)str, va, i++,lenp);
+			check_print_type((char *)str, va, i++, lenp);
 		}
 	}
 	va_end(va);
